@@ -16,6 +16,9 @@
   "authors": [
     "Jack Hanford"
   ],
+  "files": [
+    "dist/react-tooltip-portal.min.js"
+  ],
   "license": "MIT",
   "devDependencies": {
     "babel-core": "~6.24.1",
