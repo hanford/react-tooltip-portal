@@ -1,6 +1,6 @@
 {
   "name": "react-tooltip-portal",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Small unopinionated react tooltip library built using react 16's portal API.",
   "main": "./dist/react-tooltip-portal.min.js",
   "repository": {
