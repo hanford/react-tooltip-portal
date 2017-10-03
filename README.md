@@ -47,6 +47,7 @@ class App extends Component {
 * `active`: boolean, the tooltip will be visible if true
 * `position`: top, right, bottom or left. Default to left.
 * `parent`: the tooltip will be placed next to this element, must be a react ref
+* `timeout`: amount of time to allow for user to hover over tooltip (will stay open if hovering regardless of props.active)
 * `tipStyle`: object, override any of the tool tips default styles
 
 MIT © [Jack Hanford](http://jackhanford.com)

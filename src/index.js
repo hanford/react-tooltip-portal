@@ -14,31 +14,75 @@ export default class TooltipPortal extends PureComponent {
     active: PropTypes.bool.isRequired,
     offset: PropTypes.number.isRequired,
     position: PropTypes.string,
-    tipStyle: PropTypes.object
+    tipStyle: PropTypes.object,
+    timeout: PropTypes.number,
   }
 
   static defaultProps = {
     active: false,
     offset: 10,
     position: 'left',
-    tipStyle: {}
+    tipStyle: {},
+    timeout: 750
+  }
+
+  state = {
+    hover: false,
+    timeout: () => {},
+    show: this.props.active
+  }
+
+  onMouseEnter = () => {
+    clearTimeout(this.state.timeout)
+
+    this.setState({ hover: true })
+  }
+
+  onMouseLeave = () => {
+    this.setState({
+      hover: false
+    }, this.setHoverTimeout)
+  }
+
+  componentWillReceiveProps (nextProps, nextState) {
+    if (nextProps.active && !nextState.show) {
+      this.setState({ show: true })
+    }
+
+    if (!nextProps.active && !nextState.hover) {
+      this.setHoverTimeout()
+    }
+  }
+
+  setHoverTimeout = () => {
+    clearTimeout(this.state.timeout)
+
+    this.setState({
+      timeout: setTimeout(() => {
+        if (!this.state.hover) {
+          this.setState({ show: false })
+        }
+      }, this.props.timeout)
+    })
   }
 
   render () {
-    if (!this.props.active || !this.props.parent) return null
+    if ((!this.props.active && !this.state.show && !this.state.hover) || !this.props.parent) return null
 
     return createPortal(
       <Tooltip
-        active={this.props.active}
+        active={this.props.active || this.state.hover}
         parent={this.props.parent}
         offset={this.props.offset}
         position={this.props.position}
         tipStyle={this.props.tipStyle}
+        onMouseEnter={this.onMouseEnter}
+        onMouseLeave={this.onMouseLeave}
       >
         {this.props.children}
       </Tooltip>,
       document.body,
-    );
+    )
   }
 }
 
@@ -70,7 +114,6 @@ class Tooltip extends PureComponent {
     let top
     let left
 
-
     switch (position) {
       case TOP:
         top = scrollY + pNode.top - tipNode.height - offset
@@ -99,12 +142,14 @@ class Tooltip extends PureComponent {
   }
 
   render () {
-    const { active, parent, tipStyle } = this.props
+    const { tipStyle, onMouseLeave, onMouseEnter } = this.props
     const { top, left } = this.state
 
     return (
       <div
         ref={c => this.tip = c}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
         style={{
           position: 'absolute',
           zIndex: 1000,
