@@ -3,6 +3,11 @@ import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import document from 'global/document'
 
+const TOP = 'top'
+const LEFT = 'left'
+const BOTTOM = 'bottom'
+const RIGHT = 'right'
+
 export default class TooltipPortal extends PureComponent {
 
   static propTypes = {
@@ -65,18 +70,29 @@ class Tooltip extends PureComponent {
     let top
     let left
 
-    if (position === 'left') {
-      top = scrollY + pNode.top + (pNode.height / 2) - offset
-      left = scrollX + pNode.left + pNode.width + offset
-    } else if (position === 'bottom') {
-      top = scrollY + pNode.top + pNode.height + offset
-      left = scrollX + pNode.left + (pNode.width / 2) - (tipNode.width / 2)
-    } else if (position === 'top') {
-      top = scrollY + pNode.top - tipNode.height - offset
-      left = scrollX + pNode.left + (pNode.width / 2) - (tipNode.width / 2)
-    } else if (position === 'right') {
-      top = scrollY + pNode.top + (pNode.height / 2) - offset
-      left = scrollX + pNode.left - offset - tipNode.width
+
+    switch (position) {
+      case TOP:
+        top = scrollY + pNode.top - tipNode.height - offset
+        left = scrollX + pNode.left + (pNode.width / 2) - (tipNode.width / 2)
+        break
+
+      case LEFT:
+        top = scrollY + pNode.top + (pNode.height / 2) - offset
+        left = scrollX + pNode.left - offset - tipNode.width
+        break
+
+      case BOTTOM:
+        top = scrollY + pNode.top + pNode.height + offset
+        left = scrollX + pNode.left + (pNode.width / 2) - (tipNode.width / 2)
+        break
+
+      case RIGHT:
+        top = scrollY + pNode.top + (pNode.height / 2) - offset
+        left = scrollX + pNode.left + pNode.width + offset
+        break
+
+      default:
     }
 
     this.setState({ top, left })
