@@ -20,6 +20,7 @@ export default class TooltipPortal extends PureComponent {
 
   static defaultProps = {
     active: false,
+    hoverEvents: true,
     offset: 10,
     position: 'left',
     tipStyle: {},
@@ -67,7 +68,7 @@ export default class TooltipPortal extends PureComponent {
   }
 
   render () {
-    if ((!this.props.active && !this.state.show && !this.state.hover) || !this.props.parent) return null
+    if ((!this.props.active && !this.state.show && !this.state.hover) || !this.props.parent || (!this.props.active && !this.props.hoverEvents)) return null
 
     return createPortal(
       <Tooltip
