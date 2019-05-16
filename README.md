@@ -45,8 +45,10 @@ class App extends Component {
 ### Props
 
 * `active`: boolean, the tooltip will be visible if true
+* `className`: string, CSS class to apply to the tooltip
+* `offset`: number, how far the tooltip gets placed from the parent 
+* `parent`: the tooltip will be placed next to this element, must be a React ref
 * `position`: top, right, bottom or left. Default to left.
-* `parent`: the tooltip will be placed next to this element, must be a react ref
 * `timeout`: amount of time to allow for user to hover over tooltip (will stay open if hovering regardless of props.active)
 * `tipStyle`: object, override any of the tool tips default styles
 
