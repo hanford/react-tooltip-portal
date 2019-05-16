@@ -11,6 +11,7 @@
   "homepage": "https://github.com/hanford/react-tooltip-portal",
   "bugs": "https://github.com/hanford/react-tooltip-portal/issues",
   "scripts": {
+    "webpack": "webpack",
     "build": "webpack -p",
     "prepare": "npm run build"
   },
