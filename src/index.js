@@ -12,10 +12,14 @@ export default class TooltipPortal extends PureComponent {
 
   static propTypes = {
     active: PropTypes.bool.isRequired,
-    offset: PropTypes.number.isRequired,
+    parent: PropTypes.instanceOf(Element).isRequired,
+    children: PropTypes.node.isRequired,
+    offset: PropTypes.number,
     position: PropTypes.string,
     tipStyle: PropTypes.object,
+    hoverEvents: PropTypes.boolean,
     timeout: PropTypes.number,
+    className: PropTypes.string
   }
 
   static defaultProps = {
@@ -68,19 +72,33 @@ export default class TooltipPortal extends PureComponent {
   }
 
   render () {
-    if ((!this.props.active && !this.state.show && !this.state.hover) || !this.props.parent || (!this.props.active && !this.props.hoverEvents)) return null
+    const {
+      active,
+      parent,
+      offset,
+      position,
+      tipStyle,
+      hoverEvents,
+      children,
+      className
+    } = this.props;
+
+    const { show, hover } = this.state;
+
+    if ((!active && !show && !hover) || !parent || (!active && !hoverEvents)) return null
 
     return createPortal(
       <Tooltip
-        active={this.props.active || this.state.hover}
-        parent={this.props.parent}
-        offset={this.props.offset}
-        position={this.props.position}
-        tipStyle={this.props.tipStyle}
+        active={active || hover}
+        parent={parent}
+        offset={offset}
+        position={position}
+        tipStyle={tipStyle}
+        className={className}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
       >
-        {this.props.children}
+        {children}
       </Tooltip>,
       document.body,
     )
@@ -143,7 +161,7 @@ class Tooltip extends PureComponent {
   }
 
   render () {
-    const { tipStyle, onMouseLeave, onMouseEnter } = this.props
+    const { tipStyle, onMouseLeave, onMouseEnter, className } = this.props
     const { top, left } = this.state
 
     return (
@@ -154,12 +172,11 @@ class Tooltip extends PureComponent {
         style={{
           position: 'absolute',
           zIndex: 1000,
-          backgroundColor: 'white',
-          padding: 8,
           top,
           left,
           ...tipStyle
         }}
+        className={className}
       >
         {this.props.children}
       </div>
