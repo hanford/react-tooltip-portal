@@ -3,6 +3,7 @@
   "version": "0.4.0",
   "description": "Small unopinionated react tooltip library built using react 16's portal API.",
   "main": "./dist/react-tooltip-portal.min.js",
+  "types": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/hanford/react-tooltip-portal.git"
@@ -17,7 +18,8 @@
     "Jack Hanford"
   ],
   "files": [
-    "dist/react-tooltip-portal.min.js"
+    "dist/react-tooltip-portal.min.js",
+    "index.d.ts"
   ],
   "license": "MIT",
   "devDependencies": {
@@ -29,6 +31,7 @@
     "webpack": "~2.3.3"
   },
   "dependencies": {
+    "@types/react": "^16.8.17",
     "global": "~4.3.2",
     "prop-types": "~15.6.0"
   },
