@@ -24,6 +24,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@types/react": "^16.8.17",
     "babel-core": "~6.24.1",
     "babel-loader": "~6.4.1",
     "babel-preset-env": "~1.5.2",
@@ -32,7 +33,7 @@
     "webpack": "~2.3.3"
   },
   "dependencies": {
-    "@types/react": "^16.8.17",
+    "exenv": "~1.2.2",
     "global": "~4.3.2",
     "prop-types": "~15.6.0"
   },
