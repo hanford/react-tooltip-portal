@@ -3,13 +3,13 @@ import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import document from 'global/document'
 import window from 'global/window'
-import {canUseDOM} from 'exenv'
 
 const TOP = 'top'
 const LEFT = 'left'
 const BOTTOM = 'bottom'
 const RIGHT = 'right'
 
+const canUseDOM = !!(window.document && window.document.createElement)
 const SafeElement = canUseDOM ? window.Element : {}
 
 export default class TooltipPortal extends PureComponent {
