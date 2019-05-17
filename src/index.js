@@ -21,7 +21,7 @@ export default class TooltipPortal extends PureComponent {
     offset: PropTypes.number,
     position: PropTypes.string,
     tipStyle: PropTypes.object,
-    hoverEvents: PropTypes.boolean,
+    hoverEvents: PropTypes.bool,
     timeout: PropTypes.number,
     className: PropTypes.string
   }
