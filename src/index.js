@@ -2,22 +2,26 @@ import React, { PureComponent } from 'react'
 import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import document from 'global/document'
+import window from 'global/window'
 
 const TOP = 'top'
 const LEFT = 'left'
 const BOTTOM = 'bottom'
 const RIGHT = 'right'
 
+const canUseDOM = !!(window.document && window.document.createElement)
+const SafeElement = canUseDOM ? window.Element : {}
+
 export default class TooltipPortal extends PureComponent {
 
   static propTypes = {
     active: PropTypes.bool.isRequired,
-    parent: PropTypes.instanceOf(Element).isRequired,
+    parent: PropTypes.instanceOf(SafeElement).isRequired,
     children: PropTypes.node.isRequired,
     offset: PropTypes.number,
     position: PropTypes.string,
     tipStyle: PropTypes.object,
-    hoverEvents: PropTypes.boolean,
+    hoverEvents: PropTypes.bool,
     timeout: PropTypes.number,
     className: PropTypes.string
   }
